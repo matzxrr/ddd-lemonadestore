@@ -65,7 +65,7 @@ func (h *RegisterCustomerHandler) Handle(ctx context.Context, cmd RegisterCustom
         LastName:      customerAgg.LastName(),
         Type:          string(customerAgg.Type()),
         LoyaltyPoints: customerAgg.LoyaltyPoints(),
-        RegisteredAt:  customerAgg.RegisteredAt,
+        RegisteredAt:  customerAgg.RegisteredAt(),
         IsActive:      customerAgg.IsActive(),
     }, nil
 }

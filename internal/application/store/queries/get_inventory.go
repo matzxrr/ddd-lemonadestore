@@ -33,7 +33,21 @@ func (h *GetInventoryHandler) Handle(ctx context.Context, query GetInventoryQuer
     // Convert to DTOs
     var products []dtos.ProductDTO
     
-    // In real implementation, would iterate through all products
-    // For demo, returning empty slice
+
+    // Iterate through all products and get their inventory
+    for productID, product := range storeAgg.Products() {
+        qty, _ := storeAgg.GetAvailableQuantity(productID)
+
+        products = append(products, dtos.ProductDTO{
+            ID: string(product.ID()),
+            Name: string(product.Name()),
+            Description: product.Description(),
+            Price: float64(product.Price().Amount()) / 100,
+            Currency: product.Price().Currency(),
+            IsActive: product.IsActive(),
+            Quantity: qty,
+        })
+    }
+    
     return products, nil
 }

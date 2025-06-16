@@ -29,3 +29,11 @@ func NewBaseEvent() BaseEvent {
         OccurredOn: time.Now(),
     }
 }
+
+func (e BaseEvent) EventID() string {
+    return e.ID
+}
+
+func (e BaseEvent) OccurredAt() time.Time {
+    return e.OccurredOn
+}

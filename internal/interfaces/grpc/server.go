@@ -8,6 +8,10 @@ import (
 	"github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/services"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+
+	customerPb "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb/customer/v1"
+	orderPb "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb/order/v1"
+	storePb "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb/store/v1"
 )
 
 // Server wraps the gRPC server
@@ -37,9 +41,9 @@ func NewServer(
     grpcServer := grpc.NewServer(opts...)
     
     // Register services
-    pb.RegisterStoreServiceServer(grpcServer, storeService)
-    pb.RegisterOrderServiceServer(grpcServer, orderService)
-    pb.RegisterCustomerServiceServer(grpcServer, customerService)
+    storePb.RegisterStoreServiceServer(grpcServer, storeService)
+    orderPb.RegisterOrderServiceServer(grpcServer, orderService)
+    customerPb.RegisterCustomerServiceServer(grpcServer, customerService)
     
     // Enable reflection for development
     // WHAT: Allows tools like grpcurl to discover services

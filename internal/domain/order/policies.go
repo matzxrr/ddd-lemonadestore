@@ -25,7 +25,8 @@ func (p *StandardOrderPolicy) GetPreparationTime(order *Order) int {
     itemTime := len(order.Items()) * 2 // 2 minutes per item
     
     // Large orders take longer
-    largeOrderSpec := NewLargeOrderSpec(shared.Money{Amount: 5000}) // $50
+    largeOrderThreshold, _ := shared.NewMoney(5000, "USD") // $50
+    largeOrderSpec := NewLargeOrderSpec(largeOrderThreshold)
     if largeOrderSpec.IsSatisfiedBy(order) {
         itemTime += 10 // Extra 10 minutes for large orders
     }

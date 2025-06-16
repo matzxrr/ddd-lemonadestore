@@ -153,3 +153,6 @@ func (s *Store) GetAvailableQuantity(productID ProductID) (int, error) {
 func (s *Store) ID() StoreID              { return s.id }
 func (s *Store) Name() string             { return s.name }
 func (s *Store) Location() shared.Address { return s.location }
+func (s *Store) Products() map[ProductID]*Product {
+    return s.products
+}

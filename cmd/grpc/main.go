@@ -138,7 +138,7 @@ func initializeSampleData(storeRepo store.StoreRepository) {
     
     // Strawberry Lemonade
     strawberryPrice, _ := shared.NewMoney(349, "USD") // $3.49
-    product2, _ := mainStore.AddProduct(
+    mainStore.AddProduct(
         "Strawberry Lemonade",
         "Sweet strawberry mixed with tart lemonade",
         strawberryPrice,
@@ -146,14 +146,14 @@ func initializeSampleData(storeRepo store.StoreRepository) {
     
     // Pink Lemonade
     pinkPrice, _ := shared.NewMoney(329, "USD") // $3.29
-    product3, _ := mainStore.AddProduct(
+    mainStore.AddProduct(
         "Pink Lemonade",
         "A fun twist on classic lemonade",
         pinkPrice,
     )
     
     // Add initial inventory
-    products := mainStore.Products
+    products := mainStore.Products()
     for productID := range products {
         mainStore.AddInventory(productID, 100) // 100 units each
     }

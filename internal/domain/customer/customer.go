@@ -184,3 +184,4 @@ func (c *Customer) Address() shared.Address  { return c.address }
 func (c *Customer) Type() CustomerType       { return c.customerType }
 func (c *Customer) LoyaltyPoints() int       { return c.loyaltyPoints }
 func (c *Customer) IsActive() bool           { return c.isActive }
+func (c *Customer) RegisteredAt() time.Time  { return c.registeredAt }
