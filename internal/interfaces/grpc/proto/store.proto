@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+package lemonade.store.v1;
+
+option go_package = "github.com/lemonade-store/internal/interfaces/grpc/pb;pb";
+
+import "google/protobuf/timestamp.proto";
+
+// StoreService manages store operations
+service StoreService {
+    // Commands
+    rpc CreateStore(CreateStoreRequest) returns (CreateStoreResponse);
+    rpc AddProduct(AddProductRequest) returns (AddProductResponse);
+    rpc AddInventory(AddInventoryRequest) returns (AddInventoryResponse);
+    rpc UpdatePrice(UpdatePriceRequest) returns (UpdatePriceResponse);
+    
+    // Queries
+    rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+    rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+    rpc GetInventory(GetInventoryRequest) returns (GetInventoryResponse);
+}
+
+// Commands
+message CreateStoreRequest {
+    string name = 1;
+    Address location = 2;
+}
+
+message CreateStoreResponse {
+    string store_id = 1;
+}
+
+message AddProductRequest {
+    string store_id = 1;
+    string name = 2;
+    string description = 3;
+    double price = 4;
+    string currency = 5;
+}
+
+message AddProductResponse {
+    string product_id = 1;
+}
+
+message AddInventoryRequest {
+    string store_id = 1;
+    string product_id = 2;
+    int32 quantity = 3;
+}
+
+message AddInventoryResponse {
+    int32 new_quantity = 1;
+}
+
+message UpdatePriceRequest {
+    string store_id = 1;
+    string product_id = 2;
+    double new_price = 3;
+    string currency = 4;
+}
+
+message UpdatePriceResponse {
+    bool success = 1;
+}
+
+// Queries
+message GetProductRequest {
+    string store_id = 1;
+    string product_id = 2;
+}
+
+message GetProductResponse {
+    Product product = 1;
+}
+
+message ListProductsRequest {
+    string store_id = 1;
+}
+
+message ListProductsResponse {
+    repeated Product products = 1;
+}
+
+message GetInventoryRequest {
+    string store_id = 1;
+}
+
+message GetInventoryResponse {
+    repeated InventoryItem items = 1;
+}
+
+// Common messages
+message Product {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    double price = 4;
+    string currency = 5;
+    bool is_active = 6;
+}
+
+message InventoryItem {
+    string product_id = 1;
+    string product_name = 2;
+    int32 quantity = 3;
+}
+
+message Address {
+    string street = 1;
+    string city = 2;
+    string state = 3;
+    string zip_code = 4;
+    string country = 5;
+}

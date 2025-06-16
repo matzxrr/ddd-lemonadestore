@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package lemonade.order.v1;
+
+option go_package = "github.com/lemonade-store/internal/interfaces/grpc/pb;pb";
+
+import "google/protobuf/timestamp.proto";
+
+// OrderService manages customer orders
+service OrderService {
+    // Commands
+    rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+    rpc CancelOrder(CancelOrderRequest) returns (CancelOrderResponse);
+    rpc StartPreparingOrder(StartPreparingOrderRequest) returns (StartPreparingOrderResponse);
+    rpc MarkOrderReady(MarkOrderReadyRequest) returns (MarkOrderReadyResponse);
+    rpc CompleteOrder(CompleteOrderRequest) returns (CompleteOrderResponse);
+    
+    // Queries
+    rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+    rpc ListCustomerOrders(ListCustomerOrdersRequest) returns (ListCustomerOrdersResponse);
+    rpc ListOrdersByStatus(ListOrdersByStatusRequest) returns (ListOrdersByStatusResponse);
+    
+    // Streaming
+    rpc TrackOrder(TrackOrderRequest) returns (stream OrderUpdate);
+}
+
+// Commands
+message CreateOrderRequest {
+    string customer_id = 1;
+    string store_id = 2;
+    repeated OrderItem items = 3;
+}
+
+message CreateOrderResponse {
+    string order_id = 1;
+    double total_amount = 2;
+    string currency = 3;
+}
+
+message OrderItem {
+    string product_id = 1;
+    int32 quantity = 2;
+}
+
+message CancelOrderRequest {
+    string order_id = 1;
+    string reason = 2;
+}
+
+message CancelOrderResponse {
+    bool success = 1;
+}
+
+message StartPreparingOrderRequest {
+    string order_id = 1;
+}
+
+message StartPreparingOrderResponse {
+    bool success = 1;
+}
+
+message MarkOrderReadyRequest {
+    string order_id = 1;
+}
+
+message MarkOrderReadyResponse {
+    bool success = 1;
+}
+
+message CompleteOrderRequest {
+    string order_id = 1;
+}
+
+message CompleteOrderResponse {
+    bool success = 1;
+}
+
+// Queries
+message GetOrderRequest {
+    string order_id = 1;
+}
+
+message GetOrderResponse {
+    Order order = 1;
+}
+
+message ListCustomerOrdersRequest {
+    string customer_id = 1;
+}
+
+message ListCustomerOrdersResponse {
+    repeated Order orders = 1;
+}
+
+message ListOrdersByStatusRequest {
+    string status = 1;
+}
+
+message ListOrdersByStatusResponse {
+    repeated Order orders = 1;
+}
+
+// Streaming
+message TrackOrderRequest {
+    string order_id = 1;
+}
+
+message OrderUpdate {
+    string order_id = 1;
+    string status = 2;
+    google.protobuf.Timestamp updated_at = 3;
+}
+
+// Common messages
+message Order {
+    string id = 1;
+    string customer_id = 2;
+    string store_id = 3;
+    string status = 4;
+    double total_amount = 5;
+    string currency = 6;
+    repeated OrderItemDetail items = 7;
+    google.protobuf.Timestamp placed_at = 8;
+}
+
+message OrderItemDetail {
+    string id = 1;
+    string product_id = 2;
+    string name = 3;
+    int32 quantity = 4;
+    double unit_price = 5;
+    double total = 6;
+}

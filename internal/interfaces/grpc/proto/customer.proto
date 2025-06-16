@@ -1,0 +1,99 @@
+syntax = "proto3";
+
+package lemonade.customer.v1;
+
+option go_package = "github.com/lemonade-store/internal/interfaces/grpc/pb;pb";
+
+import "google/protobuf/timestamp.proto";
+import "store.proto";
+
+// CustomerService manages customer accounts
+service CustomerService {
+    // Commands
+    rpc RegisterCustomer(RegisterCustomerRequest) returns (RegisterCustomerResponse);
+    rpc UpdateCustomerContact(UpdateCustomerContactRequest) returns (UpdateCustomerContactResponse);
+    rpc RedeemPoints(RedeemPointsRequest) returns (RedeemPointsResponse);
+    rpc DeactivateCustomer(DeactivateCustomerRequest) returns (DeactivateCustomerResponse);
+    
+    // Queries
+    rpc GetCustomer(GetCustomerRequest) returns (GetCustomerResponse);
+    rpc GetCustomerByEmail(GetCustomerByEmailRequest) returns (GetCustomerByEmailResponse);
+    rpc ListCustomersByType(ListCustomersByTypeRequest) returns (ListCustomersByTypeResponse);
+}
+
+// Commands
+message RegisterCustomerRequest {
+    string email = 1;
+    string first_name = 2;
+    string last_name = 3;
+}
+
+message RegisterCustomerResponse {
+    string customer_id = 1;
+    string type = 2;
+}
+
+message UpdateCustomerContactRequest {
+    string customer_id = 1;
+    string phone_number = 2;
+    lemonade.store.v1.Address address = 3;
+}
+
+message UpdateCustomerContactResponse {
+    bool success = 1;
+}
+
+message RedeemPointsRequest {
+    string customer_id = 1;
+    int32 points = 2;
+}
+
+message RedeemPointsResponse {
+    int32 remaining_points = 1;
+}
+
+message DeactivateCustomerRequest {
+    string customer_id = 1;
+}
+
+message DeactivateCustomerResponse {
+    bool success = 1;
+}
+
+// Queries
+message GetCustomerRequest {
+    string customer_id = 1;
+}
+
+message GetCustomerResponse {
+    Customer customer = 1;
+}
+
+message GetCustomerByEmailRequest {
+    string email = 1;
+}
+
+message GetCustomerByEmailResponse {
+    Customer customer = 1;
+}
+
+message ListCustomersByTypeRequest {
+    string type = 1;
+}
+
+message ListCustomersByTypeResponse {
+    repeated Customer customers = 1;
+}
+
+// Common messages
+message Customer {
+    string id = 1;
+    string email = 2;
+    string first_name = 3;
+    string last_name = 4;
+    string phone_number = 5;
+    string type = 6;
+    int32 loyalty_points = 7;
+    bool is_active = 8;
+    google.protobuf.Timestamp registered_at = 9;
+}
