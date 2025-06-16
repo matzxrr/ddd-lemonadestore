@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package lemonade.customer.v1;
+package customer.v1;
 
-option go_package = "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb";
+option go_package = "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb;pb";
 
 import "google/protobuf/timestamp.proto";
-import "internal/interfaces/grpc/proto/store.proto";
+import "store/v1/store.proto";
 
 // CustomerService manages customer accounts
 service CustomerService {
@@ -36,7 +36,7 @@ message RegisterCustomerResponse {
 message UpdateCustomerContactRequest {
     string customer_id = 1;
     string phone_number = 2;
-    lemonade.store.v1.Address address = 3;
+    store.v1.Address address = 3;
 }
 
 message UpdateCustomerContactResponse {

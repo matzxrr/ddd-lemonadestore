@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package lemonade.order.v1;
+package order.v1;
 
-option go_package = "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb";
+option go_package = "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb;pb";
 
 import "google/protobuf/timestamp.proto";
 

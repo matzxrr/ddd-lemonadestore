@@ -1,15 +1,21 @@
 # buf.gen.yaml - Code generation configuration
-version: v1
+version: v2
+managed:
+  enabled: true
+  override:
+    - file_option: go_package_prefix
+      value: github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc
 plugins:
   # Go code generation
-  - plugin: buf.build/protocolbuffers/go
+  - remote: buf.build/protocolbuffers/go
     out: internal/interfaces/grpc/pb
     opt:
       - paths=source_relative
-  
   # gRPC Go code generation
-  - plugin: buf.build/grpc/go
+  - remote: buf.build/grpc/go
     out: internal/interfaces/grpc/pb
     opt:
       - paths=source_relative
       - require_unimplemented_servers=false
+inputs:
+  - directory: internal/interfaces/grpc/proto

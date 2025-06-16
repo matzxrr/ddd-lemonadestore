@@ -1,10 +1,8 @@
 syntax = "proto3";
 
-package lemonade.store.v1;
+package store.v1;
 
-option go_package = "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb";
-
-import "google/protobuf/timestamp.proto";
+option go_package = "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb;pb";
 
 // StoreService manages store operations
 service StoreService {
