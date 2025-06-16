@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package lemonade.order.v1;
 
-option go_package = "github.com/lemonade-store/internal/interfaces/grpc/pb;pb";
+option go_package = "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb";
 
 import "google/protobuf/timestamp.proto";
 

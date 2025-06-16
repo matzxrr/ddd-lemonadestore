@@ -1,6 +1,6 @@
 package order
 
-import "github.com/lemonade-store/internal/domain/shared"
+import "github.com/matzxrr/ddd-lemonadestore/internal/domain/shared"
 
 // Specification pattern for complex business rules
 // WHY: Encapsulates business rules in reusable, composable units
