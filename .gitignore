@@ -36,6 +36,7 @@ tmp/
 
 # Generated files
 internal/interfaces/grpc/pb/*.pb.go
+internal/interfaces/grpc/pb
 
 # Environment files
 .env

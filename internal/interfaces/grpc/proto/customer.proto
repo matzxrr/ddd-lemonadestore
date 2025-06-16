@@ -5,7 +5,7 @@ package lemonade.customer.v1;
 option go_package = "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb";
 
 import "google/protobuf/timestamp.proto";
-import "store.proto";
+import "internal/interfaces/grpc/proto/store.proto";
 
 // CustomerService manages customer accounts
 service CustomerService {

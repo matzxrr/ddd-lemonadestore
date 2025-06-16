@@ -43,7 +43,7 @@ buf-deps:
 proto: buf-deps
 	@echo "$(YELLOW)Generating proto files...$(NC)"
 	@mkdir -p $(PB_DIR)
-	cd $(PROTO_DIR) && $(BUF) generate
+	$(BUF) generate --path $(PROTO_DIR)
 	@echo "$(GREEN)Proto generation complete!$(NC)"
 
 ## build: Build the binary
