@@ -8,7 +8,7 @@ import (
 	"github.com/matzxrr/ddd-lemonadestore/internal/domain/store"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	pb "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb"
+	pb "github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb/store/v1"
 )
 
 // StoreService implements the gRPC StoreService

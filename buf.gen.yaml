@@ -4,7 +4,7 @@ managed:
   enabled: true
   override:
     - file_option: go_package_prefix
-      value: github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc
+      value: github.com/matzxrr/ddd-lemonadestore/internal/interfaces/grpc/pb
 plugins:
   # Go code generation
   - remote: buf.build/protocolbuffers/go
